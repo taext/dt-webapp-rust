@@ -1,0 +1,37 @@
+[workspace]
+members = [
+    ".",
+    "wasm"
+]
+
+[package]
+name = "decimal-time-webapp"
+version = "0.1.1"
+edition = "2021"
+authors = ["Dave DK <gh@v1d.dk>"]
+description = "A decimal time webapp using Rust and WebAssembly"
+
+# Define both a binary and a library target
+[[bin]]
+name = "decimal-time-webapp"
+path = "src/main.rs"
+
+[lib]
+name = "decimal_time_webapp"
+path = "src/lib.rs"
+
+[dependencies]
+# Server framework - using specific versions to avoid compatibility issues
+axum = "0.6.20"  # Older, stable version
+tokio = { version = "1.35.0", features = ["rt", "rt-multi-thread", "macros", "time", "net"] }
+tower = "0.4.13"
+tower-http = { version = "0.4.4", features = ["fs", "trace"] }
+
+# Logging
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+# Utility
+serde = { version = "1.0.190", features = ["derive"] }
+serde_json = "1.0.108"
+chrono = "0.4.31"
