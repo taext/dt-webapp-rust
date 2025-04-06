@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Decimal Time</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <h1 id="formatLabel">Decimal Time (YDDT5)</h1>
+        <div class="counter" id="counter">Loading...</div>
+
+        <!-- Time Unit Visualization -->
+        <div class="visualization-container">
+            <!-- Linear Visualization -->
+            <div class="visualization" id="linearViz">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="visualization-label" id="vizLabel">Current time unit: <span id="currentUnitName">Loading...</span></div>
+        </div>
+
+        <button class="viz-toggle" id="vizToggle">Hide Visualization</button>
+
+        <!-- Controls for changing decimal places -->
+        <div class="controls">
+            <span class="arrow" id="decrease" title="Decrease decimal places"><i class="fas fa-arrow-left"></i></span>
+            <span class="arrow" id="increase" title="Increase decimal places"><i class="fas fa-arrow-right"></i></span>
+
+            <!-- Up and down arrows for year/day visibility -->
+            <span class="arrow" id="up" title="Toggle year and date"><i class="fas fa-arrow-up"></i></span>
+            <span class="arrow" id="down" title="Toggle year and date"><i class="fas fa-arrow-down"></i></span>
+        </div>
+        <button class="explanation-toggle" id="explanationToggle">Show Time Dimensions</button>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-icon" id="settingsIcon">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="settings-content" id="settingsContent">
+            <div class="setting-row">
+                <label>Font</label>
+                <select id="fontSelector" class="font-selector">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                    <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                </select>
+            </div>
+            <div class="setting-row">
+                <label>Text Color</label>
+                <input type="color" id="colorSelector" class="color-selector" value="#00ff00">
+            </div>
+            <div class="setting-row">
+                <label>Sound Effects</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="soundToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <label>Visualization</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="vizEnabledToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="explanation-panel" id="explanationPanel">
+        <h3 class="explanation-title">Time Dimensions <span id="closeExplanation" style="cursor:pointer;"><i class="fas fa-times"></i></span></h3>
+        <div id="currentDimension" class="current-dimension">
+            Currently displaying: <span id="currentDimensionText" class="dimension-name">Fifth decimal (0.86 seconds)</span>
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">First decimal (10<sup>-1</sup>):</span> 2.4 hours, a Deci-Day
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Second decimal (10<sup>-2</sup>):</span> 14.4 minutes or apr. a quarter of an hour, a Quartz, there are 100 quarter hours apr. in a day
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Third decimal (10<sup>-3</sup>):</span> 1.44 minutes or a chilled minute, there are a thousand one-minute-and-a-half's in a day
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Fourth decimal (10<sup>-4</sup>):</span> 8.64 seconds, a Wave or a Breath, there are 10,000 waves or breaths in a day
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Fifth decimal (10<sup>-5</sup>):</span> 0.86 seconds, an impatient second, one 100,000th of a day
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Sixth decimal (10<sup>-6</sup>):</span> 0.086 seconds, a Blink, the time it takes to blink an eye
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Seventh decimal (10<sup>-7</sup>):</span> 0.00864 seconds, a Neuron, roughly the time of a neural impulse
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Eighth decimal (10<sup>-8</sup>):</span> 0.000864 seconds, a Photon, time for light to travel about 260 km
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Ninth decimal (10<sup>-9</sup>):</span> 0.0000864 seconds, a Quantum, approaching the timescale of quantum interactions
+        </div>
+        <div class="dimension-row">
+            <span class="dimension-name">Tenth decimal (10<sup>-10</sup>):</span> 0.00000864 seconds, a Planck, approaching fundamental limits of time measurement
+        </div>
+    </div>
+
+    <div class="user-guide" id="userGuideToggle">
+        <i class="fas fa-question"></i>
+    </div>
+    <div class="guide-panel" id="guidePanel">
+        <h3>User Guide</h3>
+        <p>This Decimal Time app shows time the obvious way, as fractions of a day.</p>
+        <h4>Keyboard Controls:</h4>
+        <ul>
+            <li><span class="keyboard-shortcut">←</span> Decrease decimal places</li>
+            <li><span class="keyboard-shortcut">→</span> Increase decimal places</li>
+            <li><span class="keyboard-shortcut">↓</span> Toggle display format (remove Year/Day)</li>
+            <li><span class="keyboard-shortcut">↑</span> Toggle display format (add Year/Day)</li>
+            <li><span class="keyboard-shortcut">V</span> Toggle visualization on/off</li>
+        </ul>
+        <h4>Display Format:</h4>
+        <p>YYYY.DDD.FFFFF where:</p>
+        <ul>
+            <li>YYYY = Current year</li>
+            <li>DDD = Day of year (1-365/366)</li>
+            <li>FFFFF = Fraction of the day (decimal places adjustable)</li>
+        </ul>
+    </div>
+
+    <audio id="tickSound" preload="auto">
+        <source src="data:audio/mp3;base64,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" type="audio/mp3">
+    </audio>
+
+    <!-- WASM modules will be loaded here -->
+    <script type="module" src="js/wasm_loader.js"></script>
+    <script type="module" src="js/main.js"></script>

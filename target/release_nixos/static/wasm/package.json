@@ -1,0 +1,19 @@
+{
+  "name": "decimal-time-wasm",
+  "type": "module",
+  "collaborators": [
+    "Your Name <your.email@example.com>"
+  ],
+  "description": "WebAssembly bindings for decimal time calculations",
+  "version": "0.1.0",
+  "files": [
+    "decimal_time_wasm_bg.wasm",
+    "decimal_time_wasm.js",
+    "decimal_time_wasm.d.ts"
+  ],
+  "main": "decimal_time_wasm.js",
+  "types": "decimal_time_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

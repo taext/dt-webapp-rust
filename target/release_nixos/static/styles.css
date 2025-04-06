@@ -1,0 +1,329 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #222;
+    color: #0f0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    color: #bbb;
+    margin-bottom: 20px;
+}
+.counter {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 20px;
+    position: relative;
+}
+.digit {
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+/* Using opacity to preserve the user's color choice */
+.digit.fade-1 { opacity: 0.9; }
+.digit.fade-2 { opacity: 0.8; }
+.digit.fade-3 { opacity: 0.7; }
+.digit.fade-4 { opacity: 0.6; }
+.digit.fade-5 { opacity: 0.5; }
+
+/* Visualization styles */
+.visualization-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+    height: 40px;
+    position: relative;
+}
+.visualization {
+    width: 100%;
+    height: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #0f0;
+    border-radius: 5px;
+    transition: width 0.1s linear;
+}
+.visualization-label {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: #aaa;
+}
+.viz-toggle {
+    cursor: pointer;
+    color: #0f0;
+    padding: 5px 10px;
+    background-color: #333;
+    border: 1px solid #0f0;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+.viz-toggle:hover {
+    background-color: #444;
+}
+.hidden {
+    display: none;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    justify-content: center;
+}
+.arrow {
+    font-size: 1.5em;
+    cursor: pointer;
+    margin: 0 10px;
+    user-select: none;
+    color: #0f0;
+}
+.arrow:hover {
+    color: #ff0;
+}
+.decimal-display {
+    font-size: 1.2em;
+    width: 50px;
+    text-align: center;
+    background-color: #333;
+    color: #0f0;
+    border: 1px solid #0f0;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.settings-panel {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 50%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+.settings-panel.expanded {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    padding: 20px;
+}
+.settings-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #0f0;
+    z-index: 10;
+}
+.settings-content {
+    opacity: 0;
+    padding-top: 50px;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.settings-panel.expanded .settings-content {
+    opacity: 1;
+    pointer-events: all;
+}
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.font-selector, .color-selector, .sound-toggle {
+    background-color: #444;
+    color: #0f0;
+    border: 1px solid #0f0;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+.user-guide {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #333;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0f0;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+.user-guide:hover {
+    background-color: #444;
+}
+.guide-panel {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #333;
+    color: #bbb;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    display: none;
+    text-align: left;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    font-size: 14px;
+}
+.guide-panel.visible {
+    display: block;
+}
+.guide-panel h3 {
+    margin-top: 0;
+    color: #0f0;
+}
+.guide-panel ul {
+    padding-left: 20px;
+}
+.guide-panel li {
+    margin: 5px 0;
+}
+.spacebar-hint {
+    display: block;
+    margin-top: 12px;
+    padding: 8px;
+    background-color: #444;
+    border-radius: 4px;
+    font-style: italic;
+}
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #444;
+    transition: .4s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #0f0;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: white;
+}
+.keyboard-shortcut {
+    background-color: #444;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: 0 2px;
+    font-family: monospace;
+}
+
+/* Styles for the explanation panel */
+.explanation-panel {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 500px;
+    color: #bbb;
+    text-align: left;
+    display: none;
+}
+.explanation-panel.visible {
+    display: block;
+}
+.explanation-title {
+    color: #0f0;
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.explanation-toggle {
+    cursor: pointer;
+    margin-top: 15px;
+    color: #0f0;
+    padding: 5px 10px;
+    background-color: #333;
+    border: 1px solid #0f0;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.explanation-toggle:hover {
+    background-color: #444;
+}
+.dimension-name {
+    font-weight: bold;
+    color: #0f0;
+}
+.dimension-row {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #444;
+}
+.current-dimension {
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    border-left: 3px solid #0f0;
+}
+
+/* Visualization styles - simplified */
+.visualization-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+}
+.viz-type-toggle {
+    font-size: 0.8em;
+    margin-top: 5px;
+    cursor: pointer;
+    color: #aaa;
+    text-decoration: underline;
+}
