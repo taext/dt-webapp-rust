@@ -2,6 +2,8 @@
 
 A modern web application that displays time in decimal format (as fractions of a day). The application uses Rust for the core logic, WebAssembly for browser integration, and a lightweight Axum web server to serve the application.
 
+[Online demonstration](https://v1d.dk/dt/) (HTML-only version but looks the same)
+
 ## Features
 
 - Real-time decimal time display with configurable decimal places (up to 10)
